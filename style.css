@@ -1,5 +1,20 @@
 body {
     background-color: #fef4d1;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    line-height: 150%;
+    margin: 12px;
+    flex: 1;
+}
+
+footer {
+    background-color: #ffffffa0;
+    padding: 1px;
 }
 
 h1,h2 {
@@ -11,6 +26,6 @@ select, button {
     margin: 2px;
 }
 
-.box {
-    line-height: 150%;
+p {
+    margin: 10px;
 }
