@@ -1,0 +1,16 @@
+body {
+    background-color: #fef4d1;
+}
+
+h1,h2 {
+    color: #fa9700;
+}
+
+select, button {
+    padding: 4px;
+    margin: 2px;
+}
+
+.box {
+    line-height: 150%;
+}
