@@ -17,15 +17,38 @@ footer {
     padding: 1px;
 }
 
-h1,h2 {
+h1,
+h2 {
     color: #fa9700;
 }
 
-select, button {
+select,
+button {
     padding: 4px;
     margin: 2px;
 }
 
 p {
     margin: 10px;
+}
+
+.ungueltig {
+    border: solid;
+    border-color: gray;
+    background-color: #fff38b;
+    padding: 2px 6px;
+    margin: 4px;
+    border-radius: 2px;
+    width: fit-content;
+}
+
+.runden {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 10px;
+}
+
+.runde {
+    white-space: nowrap;
 }
