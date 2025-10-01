@@ -56,6 +56,7 @@ function fuege_naechsten_wettbewerb_hinzu(circles = [0,0,0]) {
         document.getElementById(`wettbewerb_${wettbewerb_nummer}_runde_${i + 1}`).value = circles[i] || 0
     }
     wettbewerb_nummer--
+    ausgewaehlt()
 }
 
 function entferne_letzten_wettbewerb() {
@@ -89,19 +90,21 @@ function ausgewaehlt() {
 
 function code_importieren() {
     let code = [...code_input.value]
-    wettbewerb_nummer = aktueller_wettbewerb
-    wettbewerbe_container.innerHTML = ""
     let numList = []
     for (let i = 0; i < code.length; i++) {
-        if (code[i] != "|") {
+        if (code[i] in numb_ref) {
             numList.push(numb_ref[code[i]])
         }
     }
-    for (let i = numList.length-1; i >1 ; i -= 3) {
-        fuege_naechsten_wettbewerb_hinzu([numList[i-2], numList[i -1], numList[i]])
-    }
+    console.log(numList)
     if (numList.length % 3) {
         alert("Unvollständiger Code! Anzahl der Kreise muss durch 3 teilbar sein.")
+        return
+    }
+    wettbewerbe_container.innerHTML = ""
+    wettbewerb_nummer = aktueller_wettbewerb
+    for (let i = numList.length-1; i >1 ; i -= 3) {
+        fuege_naechsten_wettbewerb_hinzu([numList[i-2], numList[i-1], numList[i]])
     }
     ausgewaehlt()
 }
