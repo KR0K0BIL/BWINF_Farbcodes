@@ -1,4 +1,4 @@
-let wettbewerb_nummer = aktueller_wettbewerb = new Date().getFullYear()-1982 + (new Date().getMonth() >= 8)
+let wettbewerb_nummer = aktueller_wettbewerb = new Date().getFullYear() - 1982 + (new Date().getMonth() >= 8)
 
 let optionen = [
     ["Ohne meine Teilnahme"],
@@ -15,7 +15,7 @@ let farb_ref = ["⚫", "⚪", "🟡", "🔵", "🟢", "🟠", "🟤", "🔴"]
 let numb_ref = { "⚫": 0, "⚪": 1, "🟡": 2, "🔵": 3, "🟢": 4, "🟠": 5, "🟤": 6, "🔴": 7 }
 
 let wettbewerbe_container = document.getElementById("wettbewerbe")
-let code_input = document.getElementsByName("code")[0]
+let code_input = document.getElementById("code")
 code_input.addEventListener("enter", code_importieren)
 let hinzufuegen_button = document.getElementById("hinzufuegen")
 hinzufuegen_button.addEventListener("click", fuege_naechsten_wettbewerb_hinzu)
@@ -35,7 +35,7 @@ ausgewaehlt()
 function optionen_html(runde) {
     let result = ``
     for (let i = 0; i < optionen.length; i++) {
-        result += `<option value="${i}">${farb_ref[i]} - ${optionen[i][runde < 3 ? 0 : optionen[i].length-1]}</option>\n`
+        result += `<option value="${i}">${farb_ref[i]} - ${optionen[i][runde < 3 ? 0 : optionen[i].length - 1]}</option>\n`
     }
     return result
 }
@@ -46,7 +46,7 @@ function wettbewerb_html() {
     }
     return result + `<div hidden class='ungueltig' id='wettbewerb_${wettbewerb_nummer}_ungueltig'>⚠️ Ungültige Auswahl</div>`
 }
-function fuege_naechsten_wettbewerb_hinzu(circles = [0,0,0]) {
+function fuege_naechsten_wettbewerb_hinzu(circles = [0, 0, 0]) {
     if (wettbewerb_nummer < 1) { return }
     let wettbewerb_div = document.createElement('div')
     wettbewerb_div.id = "wettbewerb_" + wettbewerb_nummer
@@ -85,26 +85,26 @@ function ausgewaehlt() {
         let wettbewerb_code = farb_ref[runde[1]] + farb_ref[runde[2]] + farb_ref[runde[3]]
         code += (code != "" && trennen_checkbox.checked ? "|" : "") + (wettbewerb_code == "⚫⚫⚫" && code == "" ? "" : wettbewerb_code)
     }
-    code_input.value = code
+    code_input.innerText = code
 }
 
 function code_importieren() {
-    let code = [...code_input.value]
+    let code = [...code_input.innerText]
     let numList = []
     for (let i = 0; i < code.length; i++) {
         if (code[i] in numb_ref) {
             numList.push(numb_ref[code[i]])
         }
     }
-    console.log(numList)
+
     if (numList.length % 3) {
         alert("Unvollständiger Code! Anzahl der Kreise muss durch 3 teilbar sein.")
         return
     }
     wettbewerbe_container.innerHTML = ""
     wettbewerb_nummer = aktueller_wettbewerb
-    for (let i = numList.length-1; i >1 ; i -= 3) {
-        fuege_naechsten_wettbewerb_hinzu([numList[i-2], numList[i-1], numList[i]])
+    for (let i = numList.length - 1; i > 1; i -= 3) {
+        fuege_naechsten_wettbewerb_hinzu([numList[i - 2], numList[i - 1], numList[i]])
     }
     ausgewaehlt()
 }
