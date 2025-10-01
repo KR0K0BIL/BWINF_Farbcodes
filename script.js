@@ -1,4 +1,4 @@
-let wettbewerb_nummer = aktueller_wettbewerb = 44
+let wettbewerb_nummer = aktueller_wettbewerb = new Date().getFullYear()-1982 + (new Date().getMonth() >= 8)
 
 let optionen = [
     ["Ohne meine Teilnahme"],
@@ -15,7 +15,7 @@ let farb_ref = ["⚫", "⚪", "🟡", "🔵", "🟢", "🟠", "🟤", "🔴"]
 let numb_ref = { "⚫": 0, "⚪": 1, "🟡": 2, "🔵": 3, "🟢": 4, "🟠": 5, "🟤": 6, "🔴": 7 }
 
 let wettbewerbe_container = document.getElementById("wettbewerbe")
-let code_input = document.getElementById("code")
+let code_input = document.getElementsByName("code")[0]
 code_input.addEventListener("enter", code_importieren)
 let hinzufuegen_button = document.getElementById("hinzufuegen")
 hinzufuegen_button.addEventListener("click", fuege_naechsten_wettbewerb_hinzu)
@@ -27,33 +27,33 @@ let importieren_button = document.getElementById("importieren")
 importieren_button.addEventListener("click", code_importieren)
 
 fuege_naechsten_wettbewerb_hinzu([2, 1, 1])
-fuege_naechsten_wettbewerb_hinzu([0, 0, 0])
-fuege_naechsten_wettbewerb_hinzu([0, 0, 0])
+fuege_naechsten_wettbewerb_hinzu()
+fuege_naechsten_wettbewerb_hinzu()
 
 ausgewaehlt()
 
 function optionen_html(runde) {
     let result = ``
     for (let i = 0; i < optionen.length; i++) {
-        result += `<option value="${i}">${farb_ref[i]} - ${optionen[i][runde < 3 ? 0 : optionen[i].length]}</option>\n`
+        result += `<option value="${i}">${farb_ref[i]} - ${optionen[i][runde < 3 ? 0 : optionen[i].length-1]}</option>\n`
     }
     return result
 }
 function wettbewerb_html() {
     let result = `<h2>${wettbewerb_nummer}. Bundeswettbewerb Informatik</h2>\n<div class='runden'>\n`
     for (let i = 1; i <= 3; i++) {
-        result += `<div class='runde'>Runde ${i}: <select class='runde_select' id='wettbewerb_${wettbewerb_nummer}_runde_${i}' onchange='ausgewaehlt()'>${optionen_html(i)}</select></div>\n`
+        result += `<div class='runde'>Runde ${i}: <br><select class='runde_select' id='wettbewerb_${wettbewerb_nummer}_runde_${i}' onchange='ausgewaehlt()'>${optionen_html(i)}</select></div>\n`
     }
     return result + `<div hidden class='ungueltig' id='wettbewerb_${wettbewerb_nummer}_ungueltig'>⚠️ Ungültige Auswahl</div>`
 }
-function fuege_naechsten_wettbewerb_hinzu(circles) {
+function fuege_naechsten_wettbewerb_hinzu(circles = [0,0,0]) {
     if (wettbewerb_nummer < 1) { return }
     let wettbewerb_div = document.createElement('div')
     wettbewerb_div.id = "wettbewerb_" + wettbewerb_nummer
     wettbewerb_div.innerHTML = wettbewerb_html()
     wettbewerbe_container.insertBefore(wettbewerb_div, wettbewerbe_container.firstChild)
     for (let i = 0; i < 3; i++) {
-        document.getElementById(`wettbewerb_${wettbewerb_nummer}_runde_${i + 1}`).value = circles[i]
+        document.getElementById(`wettbewerb_${wettbewerb_nummer}_runde_${i + 1}`).value = circles[i] || 0
     }
     wettbewerb_nummer--
 }
@@ -97,10 +97,10 @@ function code_importieren() {
             numList.push(numb_ref[code[i]])
         }
     }
-    for (let i = 0; i + 2 < numList.length; i += 3) {
-        fuege_naechsten_wettbewerb_hinzu([numList[i], numList[i + 1], numList[i + 2]])
+    for (let i = numList.length-1; i >1 ; i -= 3) {
+        fuege_naechsten_wettbewerb_hinzu([numList[i-2], numList[i -1], numList[i]])
     }
-    if (code.length % 3) {
+    if (numList.length % 3) {
         alert("Unvollständiger Code! Anzahl der Kreise muss durch 3 teilbar sein.")
     }
     ausgewaehlt()
