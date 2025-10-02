@@ -26,6 +26,14 @@ trennen_checkbox.addEventListener("change", ausgewaehlt)
 let importieren_button = document.getElementById("importieren")
 importieren_button.addEventListener("click", code_importieren)
 
+code_input.addEventListener('keydown', (event) => {
+    if (event.key === "Enter") {
+        event.preventDefault()
+        code_importieren()
+        code_input.blur()
+    }
+});
+
 fuege_naechsten_wettbewerb_hinzu([2, 1, 1])
 fuege_naechsten_wettbewerb_hinzu()
 fuege_naechsten_wettbewerb_hinzu()
