@@ -6,23 +6,35 @@
     <title>BWINF Farbcodes</title>
     <link rel="icon" type="image/png" href="https://bwinf.de/favicon.ico">
     <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
 </head>
 
 <body>
-    <main>
+    <header>
         <h1>BWINF Farbcodes</h1>
-        Trennen: <input id="trennen" type="checkbox"><br>
-        Code: <p class="eingabe" id="code" contenteditable="plaintext-only"></p><br>
-        <button id="importieren">Code importieren</button><br>
+    </header>
+
+    <div class="inputBar">
+        <label for="code"><p>Code:</p></label>
+        <p class="eingabe" id="code" contenteditable="plaintext-only"></p>
+    </div>
+
+    <div class="options">
+        <button id="importieren">Code importieren</button>
         <button id="hinzufuegen">+ Wettbewerb hinzufügen</button>
         <button id="entfernen">- Wettbewerb entfernen</button>
-        <div id="wettbewerbe">
-        </div><br>
-        <script src="script.js"></script>
-    </main>
+        
+        <label class="inputLabel" for="trennen"><p>Trennen?</p></label>
+        <input class="switch" id="trennen" type="checkbox"><label class="slider" for="trennen"></label>
+    </div>
+
+    <div id="wettbewerbe" class="competitions">
+        <!-- Competitions for selection -->
+    </div>
 
     <footer>
-        <p class="footer-element"><a href="https://github.com/KR0K0BIL/BWINF_Farbcodes">Github</a></p>
-        <p class="footer-element"><a href="https://bwinf.de/bundeswettbewerb/">Bundeswettbewerb Informatik</a></p>
+        <p class="footer-element"><a href="https://github.com/KR0K0BIL/BWINF_Farbcodes">Github</a> - <a href="https://bwinf.de/bundeswettbewerb/">Bundeswettbewerb Informatik</a></p>
     </footer>
+
+    <script src="script.js"></script>
 </body>
